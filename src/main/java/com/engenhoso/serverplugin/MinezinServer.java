@@ -5,10 +5,10 @@ import com.engenhoso.serverplugin.fairy.*;
 import com.engenhoso.serverplugin.listeners.PlayerWorldReturnListener;
 import com.engenhoso.serverplugin.listeners.PortalListener;
 import com.engenhoso.serverplugin.modules.DeathTitle;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 import com.engenhoso.serverplugin.modules.DeathCountModule;
 import com.engenhoso.serverplugin.listeners.PlayerListener;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
@@ -23,11 +23,15 @@ public class MinezinServer extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // Arquivos
-            // FADA
-            File pasta = getDataFolder();
-            if (!pasta.exists()) pasta.mkdirs();
-            FairyMessageFileCreator.criarSeNaoExistir(pasta);
+        // Criar pasta do plugin, se necessário
+        File pasta = getDataFolder();
+        if (!pasta.exists()) pasta.mkdirs();
+
+        // Criar arquivo de mensagens da fada se necessário
+        FairyMessageFileCreator.criarSeNaoExistir(pasta);
+
+        // Carregar falas da fada do YML
+        FairyReactionManager.carregarMensagens(pasta);
 
         // Módulo de mortes
         deathCountModule = new DeathCountModule(this);
@@ -41,7 +45,7 @@ public class MinezinServer extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new FairyTalkListener(), this);
         FairyTalkManager.iniciarTarefaFalada();
 
-        // Eventos
+        // Eventos diversos
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new PortalListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerWorldReturnListener(), this);
@@ -51,6 +55,7 @@ public class MinezinServer extends JavaPlugin {
         getCommand("renomearfada").setExecutor(cmd);
         getCommand("renomearfada").setTabCompleter(cmd);
 
+        // Log
         getLogger().info("Plug-in Minezin Server inicializado. Versão " + version);
     }
 

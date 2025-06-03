@@ -1,69 +1,41 @@
-
 package com.engenhoso.serverplugin.fairy;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 public class FairyReactionManager {
 
-    private static final Map<FairySituation, List<String>> mensagensPorSituacao = new EnumMap<>(FairySituation.class);
-    private static final Map<UUID, Map<FairySituation, Long>> cooldownsPorJogador = new HashMap<>();
+    private static FileConfiguration mensagensConfig;
 
     public static void carregarMensagens(File pastaPlugin) {
-        File yml = new File(pastaPlugin, "fairy_messages.yml");
-        if (!yml.exists()) {
-            System.out.println("[Fada] Arquivo fairy_messages.yml não encontrado.");
+        File arquivo = new File(pastaPlugin, "fairy_messages.yml");
+
+        if (!arquivo.exists()) {
+            Bukkit.getLogger().warning("[Fada] Arquivo fairy_messages.yml não encontrado. Nenhuma fala será carregada.");
+            mensagensConfig = null;
             return;
         }
 
-        FileConfiguration config = YamlConfiguration.loadConfiguration(yml);
-
-        for (String chave : config.getKeys(false)) {
-            try {
-                FairySituation situacao = FairySituation.valueOf(chave);
-                List<String> mensagens = config.getStringList(chave);
-                if (!mensagens.isEmpty()) {
-                    mensagensPorSituacao.put(situacao, mensagens);
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println("[Fada] Situação inválida no YAML: " + chave);
-            }
-        }
+        mensagensConfig = YamlConfiguration.loadConfiguration(arquivo);
     }
 
     public static void reagir(FairySituation situacao, Player jogador) {
-        if (!FairyManager.temFada(jogador)) return;
-        if (!podeFalar(jogador, situacao)) return;
+        if (mensagensConfig == null) return;
 
-        List<String> mensagens = mensagensPorSituacao.getOrDefault(situacao, List.of());
-        if (mensagens.isEmpty()) return;
+        String chave = situacao.name();
+        List<String> falas = mensagensConfig.getStringList(chave);
 
-        String msg = mensagens.get(new Random().nextInt(mensagens.size()));
-        jogador.sendMessage("§d[✧ Fada] §f" + msg);
-        registrarCooldown(jogador, situacao);
-    }
+        if (falas == null || falas.isEmpty()) return;
 
-    private static boolean podeFalar(Player jogador, FairySituation situacao) {
-        long agora = System.currentTimeMillis();
-        long cooldown = switch (situacao) {
-            case PLAYER_TAKE_DAMAGE -> 60_000;
-            case PLAYER_CRAFT_ITEM -> 120_000;
-            case FADA_SENTE_SAUDADES -> 900_000;
-            default -> 300_000;
-        };
-
-        Map<FairySituation, Long> cooldowns = cooldownsPorJogador.computeIfAbsent(jogador.getUniqueId(), k -> new EnumMap<>(FairySituation.class));
-        long ultimo = cooldowns.getOrDefault(situacao, 0L);
-
-        return agora - ultimo >= cooldown;
-    }
-
-    private static void registrarCooldown(Player jogador, FairySituation situacao) {
-        cooldownsPorJogador.computeIfAbsent(jogador.getUniqueId(), k -> new EnumMap<>(FairySituation.class))
-            .put(situacao, System.currentTimeMillis());
+        String fala = falas.get(new Random().nextInt(falas.size()));
+        jogador.sendMessage(ChatColor.LIGHT_PURPLE + "[Fada] " + ChatColor.WHITE + fala);
     }
 }

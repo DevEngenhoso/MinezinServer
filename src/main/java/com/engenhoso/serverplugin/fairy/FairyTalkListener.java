@@ -2,10 +2,13 @@ package com.engenhoso.serverplugin.fairy;
 
 import com.engenhoso.serverplugin.MinezinServer;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,8 +20,6 @@ import java.util.UUID;
 public class FairyTalkListener implements Listener {
 
     private final Random random = new Random();
-    private final HashMap<UUID, Long> ultimoMovimento = new HashMap<>();
-    private final HashMap<UUID, Long> ultimaReacaoInatividade = new HashMap<>();
     private final HashMap<UUID, Long> ultimoDialogo = new HashMap<>();
 
     private boolean podeFalar(Player jogador) {
@@ -87,48 +88,83 @@ public class FairyTalkListener implements Listener {
 
         JavaPlugin plugin = MinezinServer.getInstance();
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            if (new Random().nextDouble() < 0.4) {
+            if (random.nextDouble() < 0.4) {
                 if (podeFalar(jogador)) {
                     FairyReactionManager.reagir(FairySituation.PLAYER_CRAFT_ITEM, jogador);
                 }
             }
         }, 2L);
     }
-}
 
-@EventHandler
+    @EventHandler
     public void aoUsarTotem(EntityResurrectEvent e) {
         if (!(e.getEntity() instanceof Player jogador)) return;
+        if (!FairyManager.temFada(jogador)) return;
+        if (!podeFalar(jogador)) return;
         FairyReactionManager.reagir(FairySituation.PLAYER_USE_TOTEM, jogador);
     }
 
-@EventHandler
+    @EventHandler
     public void aoEntrarNoEnd(PlayerChangedWorldEvent e) {
         Player jogador = e.getPlayer();
+        if (!FairyManager.temFada(jogador)) return;
         if (jogador.getWorld().getEnvironment() == World.Environment.THE_END) {
-            FairyReactionManager.reagir(FairySituation.PLAYER_ENTER_END, jogador);
+            if (podeFalar(jogador)) {
+                FairyReactionManager.reagir(FairySituation.PLAYER_ENTER_END, jogador);
+            }
         }
     }
 
-@EventHandler
+    @EventHandler
     public void aoRetornarOverworld(PlayerChangedWorldEvent e) {
         Player jogador = e.getPlayer();
+        if (!FairyManager.temFada(jogador)) return;
         if (jogador.getWorld().getEnvironment() == World.Environment.NORMAL) {
-            FairyReactionManager.reagir(FairySituation.PLAYER_RETURN_OVERWORLD, jogador);
+            if (podeFalar(jogador)) {
+                FairyReactionManager.reagir(FairySituation.PLAYER_RETURN_OVERWORLD, jogador);
+            }
         }
     }
 
-@EventHandler
+    @EventHandler
     public void aoMatarCriatura(EntityDeathEvent e) {
-        if (e.getEntity().getKiller() instanceof Player jogador) {
-            FairyReactionManager.reagir(FairySituation.PLAYER_KILL_MOB, jogador);
-        }
+        if (!(e.getEntity().getKiller() instanceof Player jogador)) return;
+        if (!FairyManager.temFada(jogador)) return;
+        if (!podeFalar(jogador)) return;
+        FairyReactionManager.reagir(FairySituation.PLAYER_KILL_MOB, jogador);
     }
 
-@EventHandler
+    @EventHandler
     public void aoEntrarDuranteTempestade(PlayerJoinEvent e) {
         Player jogador = e.getPlayer();
+        if (!FairyManager.temFada(jogador)) return;
         if (jogador.getWorld().hasStorm()) {
-            FairyReactionManager.reagir(FairySituation.TIME_STORM, jogador);
+            if (podeFalar(jogador)) {
+                FairyReactionManager.reagir(FairySituation.TIME_STORM, jogador);
+            }
         }
     }
+
+    @EventHandler
+    public void aoMinerar(BlockBreakEvent e) {
+        Player jogador = e.getPlayer();
+        if (!FairyManager.temFada(jogador)) return;
+        if (!podeFalar(jogador)) return;
+
+        Material tipo = e.getBlock().getType();
+        FairySituation situacao = null;
+
+        switch (tipo) {
+            case IRON_ORE, DEEPSLATE_IRON_ORE, RAW_IRON -> situacao = FairySituation.MINERA_FERRO;
+            case GOLD_ORE, DEEPSLATE_GOLD_ORE, RAW_GOLD -> situacao = FairySituation.MINERA_OURO;
+            case DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE, DIAMOND -> situacao = FairySituation.MINERA_DIAMANTE;
+            case ANCIENT_DEBRIS, NETHERITE_SCRAP, NETHERITE_INGOT -> situacao = FairySituation.MINERA_NETHERITE;
+            case AMETHYST_BLOCK, BUDDING_AMETHYST, AMETHYST_SHARD -> situacao = FairySituation.MINERA_AMETISTA;
+            default -> {{ /* nenhum minério relevante */ }}
+        }
+
+        if (situacao != null) {
+            FairyReactionManager.reagir(situacao, jogador);
+        }
+    }
+}
