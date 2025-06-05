@@ -9,3 +9,9 @@ commands:
   renomearfada:
     description: Renomeia a fada do jogador
     usage: /renomearfada <novo_nome>
+  invocarfada:
+    description: invoca sua fada manualmente
+    usage: /invocarfada
+  sumirfada:
+    description: Faz sua fada sumir temporariamente
+    usage: /sumirfada

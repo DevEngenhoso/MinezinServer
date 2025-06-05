@@ -83,4 +83,20 @@ public class FairyManager {
             fada.getEntidade().remove();
         }
     }
+
+    public static boolean invocarFada(Player player) {
+        if (fadas.containsKey(player.getUniqueId())) {
+            return false;
+        }
+        criarOuSubstituirFada(player);
+        return true;
+    }
+
+    public static boolean removerFadaTemporariamente(Player player) {
+        if (!fadas.containsKey(player.getUniqueId())) {
+            return false;
+        }
+        removerFada(player);
+        return true;
+    }
 }

@@ -1,5 +1,7 @@
+com\engenhoso\serverplugin\commands\InvocarFadaCommand.class
 com\engenhoso\serverplugin\fairy\FairyTalkListener.class
 com\engenhoso\serverplugin\fairy\FairyMessages.class
+com\engenhoso\serverplugin\commands\SumirFadaCommand.class
 com\engenhoso\serverplugin\listeners\PortalListener.class
 com\engenhoso\serverplugin\fairy\FairyTalkManager.class
 com\engenhoso\serverplugin\fairy\FairyListener.class

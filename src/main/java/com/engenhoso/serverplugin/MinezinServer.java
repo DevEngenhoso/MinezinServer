@@ -1,6 +1,8 @@
 package com.engenhoso.serverplugin;
 
+import com.engenhoso.serverplugin.commands.InvocarFadaCommand;
 import com.engenhoso.serverplugin.commands.RenomearFadaCommand;
+import com.engenhoso.serverplugin.commands.SumirFadaCommand;
 import com.engenhoso.serverplugin.fairy.*;
 import com.engenhoso.serverplugin.listeners.PlayerWorldReturnListener;
 import com.engenhoso.serverplugin.listeners.PortalListener;
@@ -54,6 +56,9 @@ public class MinezinServer extends JavaPlugin {
         RenomearFadaCommand cmd = new RenomearFadaCommand();
         getCommand("renomearfada").setExecutor(cmd);
         getCommand("renomearfada").setTabCompleter(cmd);
+        getCommand("invocarfada").setExecutor(new InvocarFadaCommand());
+        getCommand("sumirfada").setExecutor(new SumirFadaCommand());
+
 
         // Log
         getLogger().info("Plug-in Minezin Server inicializado. Versão " + version);

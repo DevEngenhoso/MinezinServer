@@ -69,7 +69,7 @@ public class FairyTalkManager {
     private static boolean podeFalar(Player jogador) {
         long agora = System.currentTimeMillis();
         long ultimo = ultimoDialogo.getOrDefault(jogador.getUniqueId(), 0L);
-        if (agora - ultimo >= 5 * 60 * 1000) {
+        if (agora - ultimo >= 5) {
             ultimoDialogo.put(jogador.getUniqueId(), agora);
             return true;
         }
