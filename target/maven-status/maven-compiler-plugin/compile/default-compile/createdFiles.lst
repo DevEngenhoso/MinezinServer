@@ -5,6 +5,7 @@ com\engenhoso\serverplugin\commands\SumirFadaCommand.class
 com\engenhoso\serverplugin\listeners\PortalListener.class
 com\engenhoso\serverplugin\fairy\FairyTalkManager.class
 com\engenhoso\serverplugin\fairy\FairyListener.class
+com\engenhoso\serverplugin\listeners\ArmorEquipListener.class
 com\engenhoso\serverplugin\fairy\FairyNames.class
 com\engenhoso\serverplugin\modules\DeathCountModule$1.class
 com\engenhoso\serverplugin\fairy\FairyReactionManager.class

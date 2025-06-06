@@ -1,14 +1,14 @@
 package com.engenhoso.serverplugin;
 
-import com.engenhoso.serverplugin.commands.InvocarFadaCommand;
-import com.engenhoso.serverplugin.commands.RenomearFadaCommand;
-import com.engenhoso.serverplugin.commands.SumirFadaCommand;
-import com.engenhoso.serverplugin.fairy.*;
-import com.engenhoso.serverplugin.listeners.PlayerWorldReturnListener;
-import com.engenhoso.serverplugin.listeners.PortalListener;
-import com.engenhoso.serverplugin.modules.DeathTitle;
-import com.engenhoso.serverplugin.modules.DeathCountModule;
-import com.engenhoso.serverplugin.listeners.PlayerListener;
+import com.engenhoso.serverplugin.commands.fairycommands.InvocarFadaCommand;
+import com.engenhoso.serverplugin.commands.fairycommands.RenomearFadaCommand;
+import com.engenhoso.serverplugin.commands.fairycommands.SumirFadaCommand;
+import com.engenhoso.serverplugin.modules.fairy.listeners.FairyListener;
+import com.engenhoso.serverplugin.modules.fairy.listeners.FairySpawnListener;
+import com.engenhoso.serverplugin.modules.fairy.listeners.FairyTalkListener;
+import com.engenhoso.serverplugin.modules.fairy.core.*;
+import com.engenhoso.serverplugin.modules.deathranking.DeathTitle;
+import com.engenhoso.serverplugin.modules.deathranking.DeathCountModule;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,19 +38,18 @@ public class MinezinServer extends JavaPlugin {
         // Módulo de mortes
         deathCountModule = new DeathCountModule(this);
         deathCountModule.iniciarAtualizacaoAutomatica();
-        getServer().getPluginManager().registerEvents(new DeathTitle(this), this);
+
 
         // Fada
         FairyManager.init(this);
         Bukkit.getPluginManager().registerEvents(new FairyListener(), this);
         new FairyFollowTask().runTaskTimer(this, 0L, 20L);
-        getServer().getPluginManager().registerEvents(new FairyTalkListener(), this);
         FairyTalkManager.iniciarTarefaFalada();
 
-        // Eventos diversos
-        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        getServer().getPluginManager().registerEvents(new PortalListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerWorldReturnListener(), this);
+        // Eventos
+        getServer().getPluginManager().registerEvents(new FairySpawnListener(this), this);
+        getServer().getPluginManager().registerEvents(new DeathTitle(this), this);
+        getServer().getPluginManager().registerEvents(new FairyTalkListener(), this);
 
         // Comandos
         RenomearFadaCommand cmd = new RenomearFadaCommand();
