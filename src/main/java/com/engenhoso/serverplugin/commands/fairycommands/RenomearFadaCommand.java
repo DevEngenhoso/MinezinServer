@@ -1,7 +1,7 @@
-package com.engenhoso.serverplugin.commands;
+package com.engenhoso.serverplugin.commands.fairycommands;
 
-import com.engenhoso.serverplugin.fairy.Fairy;
-import com.engenhoso.serverplugin.fairy.FairyManager;
+import com.engenhoso.serverplugin.modules.fairy.core.Fairy;
+import com.engenhoso.serverplugin.modules.fairy.core.FairyManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;

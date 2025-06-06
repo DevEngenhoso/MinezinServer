@@ -1,6 +1,7 @@
-package com.engenhoso.serverplugin.fairy;
+package com.engenhoso.serverplugin.modules.fairy.listeners;
 
-import org.bukkit.Material;
+import com.engenhoso.serverplugin.modules.fairy.core.Fairy;
+import com.engenhoso.serverplugin.modules.fairy.core.FairyManager;
 import org.bukkit.entity.Allay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,6 +1,6 @@
-package com.engenhoso.serverplugin.commands;
+package com.engenhoso.serverplugin.commands.fairycommands;
 
-import com.engenhoso.serverplugin.fairy.FairyManager;
+import com.engenhoso.serverplugin.modules.fairy.core.FairyManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

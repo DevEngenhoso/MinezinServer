@@ -1,4 +1,4 @@
-package com.engenhoso.serverplugin.modules;
+package com.engenhoso.serverplugin.modules.deathranking;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;

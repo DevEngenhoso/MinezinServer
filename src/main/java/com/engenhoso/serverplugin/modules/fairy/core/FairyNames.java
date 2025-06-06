@@ -1,4 +1,4 @@
-package com.engenhoso.serverplugin.fairy;
+package com.engenhoso.serverplugin.modules.fairy.core;
 
 import java.util.Arrays;
 import java.util.List;

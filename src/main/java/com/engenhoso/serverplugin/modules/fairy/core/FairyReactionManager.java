@@ -1,4 +1,4 @@
-package com.engenhoso.serverplugin.fairy;
+package com.engenhoso.serverplugin.modules.fairy.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -7,7 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 

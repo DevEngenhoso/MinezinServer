@@ -1,4 +1,4 @@
-package com.engenhoso.serverplugin.fairy;
+package com.engenhoso.serverplugin.modules.fairy.core;
 
 import com.engenhoso.serverplugin.MinezinServer;
 import org.bukkit.Bukkit;
@@ -67,13 +67,18 @@ public class FairyTalkManager {
     private static final HashMap<UUID, Long> ultimoDialogo = new HashMap<>();
 
     private static boolean podeFalar(Player jogador) {
+        return true;
+        /*
         long agora = System.currentTimeMillis();
         long ultimo = ultimoDialogo.getOrDefault(jogador.getUniqueId(), 0L);
+
+
         if (agora - ultimo >= 5) {
             ultimoDialogo.put(jogador.getUniqueId(), agora);
             return true;
         }
         return false;
+        */
     }
 
     public static void iniciarTarefaFalada() {

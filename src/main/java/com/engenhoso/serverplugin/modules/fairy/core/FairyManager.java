@@ -1,4 +1,4 @@
-package com.engenhoso.serverplugin.fairy;
+package com.engenhoso.serverplugin.modules.fairy.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

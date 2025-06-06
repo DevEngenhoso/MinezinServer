@@ -1,8 +1,8 @@
-package com.engenhoso.serverplugin.listeners;
+package com.engenhoso.serverplugin.modules.fairy.listeners;
 
 import com.engenhoso.serverplugin.MinezinServer;
-import com.engenhoso.serverplugin.fairy.Fairy;
-import com.engenhoso.serverplugin.fairy.FairyManager;
+import com.engenhoso.serverplugin.modules.fairy.core.Fairy;
+import com.engenhoso.serverplugin.modules.fairy.core.FairyManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -12,13 +12,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Objects;
 
-public class PlayerListener implements Listener {
-
+public class FairySpawnListener implements Listener {
     private final MinezinServer plugin;
 
-    public PlayerListener(MinezinServer plugin) {
+    public FairySpawnListener(MinezinServer plugin) {
         this.plugin = plugin;
     }
 
@@ -37,7 +35,7 @@ public class PlayerListener implements Listener {
             fada.getInventario().salvarInventario(jogador.getUniqueId());
 
             if (fada.getEntidade() != null && !fada.getEntidade().isDead()) {
-                fada.getEntidade().remove(); // Garante que a fada seja removida do mundo
+                fada.getEntidade().remove();
             }
 
             FairyManager.removerFada(jogador);
@@ -49,7 +47,7 @@ public class PlayerListener implements Listener {
         Player jogador = e.getEntity();
         Fairy fada = FairyManager.getFada(jogador);
         if (fada != null && fada.getEntidade() != null && !fada.getEntidade().isDead()) {
-            fada.getEntidade().remove(); // Remove a fada do mundo
+            fada.getEntidade().remove();
         }
         FairyManager.removerFada(jogador);
     }
@@ -61,7 +59,7 @@ public class PlayerListener implements Listener {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             Fairy fada = FairyManager.criarOuSubstituirFada(jogador);
             fada.getInventario().carregarInventario(jogador.getUniqueId());
-        }, 20L); // 1 segundo após renascer
+        }, 20L);
     }
 
     @EventHandler
@@ -69,7 +67,6 @@ public class PlayerListener implements Listener {
         Player jogador = e.getPlayer();
         World mundoAtual = jogador.getWorld();
 
-        // Se voltou para o overworld
         if (mundoAtual.getEnvironment() == World.Environment.NORMAL) {
             new BukkitRunnable() {
                 @Override
@@ -77,7 +74,38 @@ public class PlayerListener implements Listener {
                     Fairy fada = FairyManager.criarOuSubstituirFada(jogador);
                     fada.getInventario().carregarInventario(jogador.getUniqueId());
                 }
-            }.runTaskLater(plugin, 100L); // 5 segundos depois de voltar
+            }.runTaskLater(plugin, 100L);
         }
+    }
+
+    @EventHandler
+    public void aoVoltarParaOverworld(PlayerChangedWorldEvent event) {
+        Player jogador = event.getPlayer();
+
+        if (jogador.getWorld().getEnvironment() == World.Environment.NORMAL) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    FairyManager.removerFada(jogador); // <--- adicionado
+                    FairyManager.criarOuSubstituirFada(jogador);
+                    jogador.sendMessage("§d[✧ Fada] §fAhhh, chão firme... estou de volta!");
+                }
+            }.runTaskLater(MinezinServer.getInstance(), 10L);
+        }
+    }
+
+    @EventHandler
+    public void aoEntrarEmPortal(PlayerPortalEvent event) {
+        Player jogador = event.getPlayer();
+
+        if (!FairyManager.temFada(jogador)) return;
+
+        Fairy fada = FairyManager.getFada(jogador);
+        if (fada != null && fada.getEntidade() != null && fada.getEntidade().isValid()) {
+            fada.getEntidade().remove(); // Remove do mundo
+        }
+
+        FairyManager.removerFada(jogador);
+        jogador.sendMessage("§d[✧ Fada] §fPortais e eu não nos damos muito bem... Adeus por agora!");
     }
 }

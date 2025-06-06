@@ -1,4 +1,4 @@
-package com.engenhoso.serverplugin.fairy;
+package com.engenhoso.serverplugin.modules.fairy.core;
 
 import org.bukkit.entity.Allay;
 import org.bukkit.entity.Player;
