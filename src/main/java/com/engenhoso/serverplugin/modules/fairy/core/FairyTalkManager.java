@@ -97,6 +97,6 @@ public class FairyTalkManager {
                     }
                 }
             }
-        }.runTaskTimerAsynchronously(MinezinServer.getInstance(), 0L, 20L * 120); // a cada 2 minutos
+        }.runTaskTimer(MinezinServer.getInstance(), 0L, 20L * 120);
     }
 }
