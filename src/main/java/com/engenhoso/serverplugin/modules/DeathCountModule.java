@@ -1,6 +1,7 @@
 package com.engenhoso.serverplugin.modules;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +26,7 @@ public class DeathCountModule {
             public void run() {
                 atualizarScoreboards();
             }
-        }.runTaskTimer(plugin, 0L, 20L * 5); // 5 segundos
+        }.runTaskTimer(plugin, 0L, 20L * 5);
     }
 
     public void atualizarScoreboards() {
@@ -46,21 +47,24 @@ public class DeathCountModule {
         objetivo.setDisplayName("§c§lMORTES");
 
         for (String entry : scoreboard.getEntries()) {
-            if (objetivo.getScore(entry) != null) {
-                scoreboard.resetScores(entry);
-            }
+            scoreboard.resetScores(entry);
         }
 
-        List<Player> jogadoresOrdenados = new ArrayList<>(Bukkit.getOnlinePlayers());
+        List<OfflinePlayer> jogadoresOrdenados = new ArrayList<>(List.of(Bukkit.getOfflinePlayers()));
+
+        jogadoresOrdenados.removeIf(p -> !p.hasPlayedBefore());
+
         jogadoresOrdenados.sort(Comparator.comparingInt(p -> -p.getStatistic(Statistic.DEATHS)));
 
         int max = Math.min(3, jogadoresOrdenados.size());
 
         for (int i = 0; i < max; i++) {
-            Player p = jogadoresOrdenados.get(i);
+            OfflinePlayer p = jogadoresOrdenados.get(i);
             int mortes = p.getStatistic(Statistic.DEATHS);
 
-            String line = "§f" + (i + 1) + ". " + p.getName() + " - §c";
+            String nome = p.getName() != null ? p.getName() : "Desconhecido";
+            String line = "§f" + (i + 1) + ". " + nome + " - §c";
+
             objetivo.getScore(line).setScore(mortes);
         }
     }
