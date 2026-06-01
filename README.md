@@ -45,4 +45,4 @@ A proposta é manter o plugin leve, direto e focado em funcionalidades que realm
 
 ## Status do projeto
 
-O plugin está em desenvolvimento e pode receber novas funcionalidades conforme surgirem ideias para o servidor.
+O plugin está em desenvolvimento e pode receber (ou perder, dependendo do meu humor) novas funcionalidades conforme surgirem ideias para o servidor.
