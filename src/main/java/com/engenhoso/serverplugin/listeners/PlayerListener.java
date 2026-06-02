@@ -15,6 +15,6 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void aoEntrar(PlayerJoinEvent e) {
-        plugin.getDeathCountModule().mostrarSidebar(e.getPlayer());
+        plugin.getDimensionScoreboardModule().mostrarSidebar(e.getPlayer());
     }
 }

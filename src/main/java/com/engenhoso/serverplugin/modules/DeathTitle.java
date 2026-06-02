@@ -10,7 +10,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 public class DeathTitle implements Listener {
 
@@ -36,7 +39,8 @@ public class DeathTitle implements Listener {
     private final Random random = new Random();
     private final JavaPlugin plugin;
 
-    // Construtor
+    private final Map<UUID, Long> ultimasMensagensDeMorte = new HashMap<>();
+
     public DeathTitle(JavaPlugin plugin) {
         this.plugin = plugin;
     }
@@ -45,6 +49,13 @@ public class DeathTitle implements Listener {
     public void aoMorrer(PlayerDeathEvent e) {
         Player morto = e.getEntity();
         String nome = morto.getName();
+
+        // Cancela a mensagem padrão do Minecraft para evitar duplicidade.
+        e.setDeathMessage(null);
+
+        if (podeEnviarMensagem(morto)) {
+            Bukkit.broadcastMessage("§7" + nome + " morreu");
+        }
 
         Sound somAleatorio = sonsAssustadores[random.nextInt(sonsAssustadores.length)];
 
@@ -58,7 +69,7 @@ public class DeathTitle implements Listener {
 
             @Override
             public void run() {
-                if (tempo > 200) { // 200 ticks = 10 segundos
+                if (tempo > 200) {
                     this.cancel();
                     return;
                 }
@@ -72,5 +83,17 @@ public class DeathTitle implements Listener {
                 tempo++;
             }
         }.runTaskTimer(plugin, 0, 1);
+    }
+
+    private boolean podeEnviarMensagem(Player jogador) {
+        long agora = System.currentTimeMillis();
+        long ultima = ultimasMensagensDeMorte.getOrDefault(jogador.getUniqueId(), 0L);
+
+        if (agora - ultima < 1000) {
+            return false;
+        }
+
+        ultimasMensagensDeMorte.put(jogador.getUniqueId(), agora);
+        return true;
     }
 }

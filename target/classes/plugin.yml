@@ -4,3 +4,24 @@ main: com.engenhoso.serverplugin.MinezinServer
 api-version: '26.1.2'
 description: Plug-in oficial do MinezinServer
 author: Engenhoso
+commands:
+  lock:
+    description: Trava Nether ou End por um período.
+    usage: /lock <dimension> <quantidade> <years|months|weeks|days|hours|minutes>
+    permission: minezin.dimensionlock.admin
+    permission-message: "§cApenas operadores podem usar este comando."
+
+  unlock:
+    description: Destrava Nether ou End imediatamente.
+    usage: /unlock <dimension>
+    permission: minezin.dimensionlock.admin
+    permission-message: "§cApenas operadores podem usar este comando."
+
+  scoreboard:
+    description: Mostra ou esconde o scoreboard do Minezin Server.
+    usage: /scoreboard <on|off|toggle>
+
+permissions:
+  minezin.dimensionlock.admin:
+    description: Permite travar e destravar dimensões.
+    default: op

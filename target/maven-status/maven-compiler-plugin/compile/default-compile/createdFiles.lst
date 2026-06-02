@@ -1,8 +1,11 @@
-com\engenhoso\serverplugin\modules\DeathCountModule$1.class
+com\engenhoso\serverplugin\modules\DimensionScoreboardModule.class
+com\engenhoso\serverplugin\modules\DimensionLockModule.class
+com\engenhoso\serverplugin\modules\DimensionScoreboardModule$1.class
 com\engenhoso\serverplugin\commands\ServerCommands.class
 com\engenhoso\serverplugin\modules\DeathTitle$1.class
 com\engenhoso\serverplugin\modules\DeathTitle.class
-com\engenhoso\serverplugin\modules\DeathCountModule.class
 com\engenhoso\serverplugin\utils\ScoreboardUtil.class
+com\engenhoso\serverplugin\commands\ScoreboardCommand.class
+com\engenhoso\serverplugin\listeners\DimensionLockListener.class
 com\engenhoso\serverplugin\listeners\PlayerListener.class
 com\engenhoso\serverplugin\MinezinServer.class
