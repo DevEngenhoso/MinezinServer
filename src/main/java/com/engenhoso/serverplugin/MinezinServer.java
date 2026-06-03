@@ -1,12 +1,14 @@
 package com.engenhoso.serverplugin;
 
-import com.engenhoso.serverplugin.commands.ServerCommands;
-import com.engenhoso.serverplugin.commands.ScoreboardCommand;
-import com.engenhoso.serverplugin.listeners.DimensionLockListener;
-import com.engenhoso.serverplugin.listeners.PlayerListener;
-import com.engenhoso.serverplugin.modules.DimensionScoreboardModule;
-import com.engenhoso.serverplugin.modules.DeathTitle;
-import com.engenhoso.serverplugin.modules.DimensionLockModule;
+import com.engenhoso.serverplugin.core.command.CommandRegistry;
+import com.engenhoso.serverplugin.core.module.ModuleManager;
+import com.engenhoso.serverplugin.features.aura.AuraModule;
+import com.engenhoso.serverplugin.features.deathtitle.DeathTitleModule;
+import com.engenhoso.serverplugin.features.dimensionlock.DimensionLockModule;
+import com.engenhoso.serverplugin.features.dimensionlock.DimensionLockService;
+import com.engenhoso.serverplugin.features.scoreboard.ScoreboardModule;
+import com.engenhoso.serverplugin.features.scoreboard.ScoreboardService;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MinezinServer extends JavaPlugin {
@@ -14,44 +16,75 @@ public class MinezinServer extends JavaPlugin {
     public String version = "1.4";
 
     private static MinezinServer instance;
-    private DimensionScoreboardModule dimensionScoreboardModule;
+
+    private ModuleManager moduleManager;
+
     private DimensionLockModule dimensionLockModule;
+    private ScoreboardModule scoreboardModule;
+    private DeathTitleModule deathTitleModule;
+    private AuraModule auraModule;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        // Trava de dimensões
-        dimensionLockModule = new DimensionLockModule(this);
+        CommandRegistry commandRegistry = new CommandRegistry(this);
 
-        // Scoreboard das dimensões
-        dimensionScoreboardModule = new DimensionScoreboardModule(this, dimensionLockModule);
-        dimensionScoreboardModule.iniciarAtualizacaoAutomatica();
+        moduleManager = new ModuleManager(this);
 
-        // Eventos
-        getServer().getPluginManager().registerEvents(new DeathTitle(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        getServer().getPluginManager().registerEvents(new DimensionLockListener(dimensionLockModule), this);
+        dimensionLockModule = new DimensionLockModule(this, commandRegistry);
+        scoreboardModule = new ScoreboardModule(this, commandRegistry, dimensionLockModule.getService());
+        deathTitleModule = new DeathTitleModule(this);
+        auraModule = new AuraModule(this);
 
-        // Comandos
-        ServerCommands serverCommands = new ServerCommands(dimensionLockModule);
+        moduleManager.registerModule(dimensionLockModule);
+        moduleManager.registerModule(scoreboardModule);
+        moduleManager.registerModule(deathTitleModule);
+        moduleManager.registerModule(auraModule);
 
-        getCommand("lock").setExecutor(serverCommands);
-        getCommand("lock").setTabCompleter(serverCommands);
+        moduleManager.enableModules();
 
-        getCommand("unlock").setExecutor(serverCommands);
-        getCommand("unlock").setTabCompleter(serverCommands);
-
-        ScoreboardCommand scoreboardCommand = new ScoreboardCommand(dimensionScoreboardModule);
-
-        getCommand("scoreboard").setExecutor(scoreboardCommand);
-        getCommand("scoreboard").setTabCompleter(scoreboardCommand);
+        imprimirLogoConsole();
 
         getLogger().info("Plug-in Minezin Server inicializado. Versão " + version);
     }
 
+    private void imprimirLogoConsole() {
+        String[] minezin = {
+                " __  __ ___ _   _ _____ _____ ___ _   _ ",
+                "|  \\/  |_ _| \\ | | ____|__  /_ _| \\ | |",
+                "| |\\/| || ||  \\| |  _|   / / | ||  \\| |",
+                "| |  | || || |\\  | |___ / /_ | || |\\  |",
+                "|_|  |_|___|_| \\_|_____/____|___|_| \\_|"
+        };
+
+        String[] server = {
+                " ____  _____ ______     _______ ____  ",
+                "/ ___|| ____|  _ \\ \\   / / ____|  _ \\ ",
+                "\\___ \\|  _| | |_) \\ \\ / /|  _| | |_) |",
+                " ___) | |___|  _ < \\ V / | |___|  _ < ",
+                "|____/|_____|_| \\_\\ \\_/  |_____|_| \\_\\"
+        };
+
+        for (String linha : minezin) {
+            getServer().getConsoleSender().sendMessage(ChatColor.GREEN + linha);
+        }
+
+        getServer().getConsoleSender().sendMessage("");
+
+        for (String linha : server) {
+            getServer().getConsoleSender().sendMessage(ChatColor.GOLD + linha);
+        }
+
+        getServer().getConsoleSender().sendMessage(ChatColor.RESET.toString());
+    }
+
     @Override
     public void onDisable() {
+        if (moduleManager != null) {
+            moduleManager.disableModules();
+        }
+
         getLogger().info("Plug-in Minezin Server encerrado.");
     }
 
@@ -59,11 +92,11 @@ public class MinezinServer extends JavaPlugin {
         return instance;
     }
 
-    public DimensionScoreboardModule getDimensionScoreboardModule() {
-        return dimensionScoreboardModule;
+    public DimensionLockService getDimensionLockService() {
+        return dimensionLockModule.getService();
     }
 
-    public DimensionLockModule getDimensionLockModule() {
-        return dimensionLockModule;
+    public ScoreboardService getScoreboardService() {
+        return scoreboardModule.getService();
     }
 }

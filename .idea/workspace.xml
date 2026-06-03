@@ -5,30 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8411d140-4da2-4bca-9847-c41ae272d857" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/commands/ScoreboardCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/listeners/DimensionLockListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DimensionLockModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DimensionScoreboardModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/core/command/CommandRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/core/module/ModuleManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/core/module/PluginModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/AuraListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/AuraModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/AuraService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/ultimate/BlackHoleUltimateCraftListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/ultimate/BlackHoleUltimateItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/ultimate/BlackHoleUltimateListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/ultimate/BlackHoleUltimateRecipe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/aura/ultimate/BlackHoleUltimateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/deathtitle/DeathTitleModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/dimensionlock/DimensionLockModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/scoreboard/ScoreboardModule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/MinezinServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/MinezinServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/commands/ServerCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/commands/ServerCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/listeners/PlayerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/listeners/PlayerListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DeathCountModule.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DeathTitle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DeathTitle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/utils/ScoreboardUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/utils/ScoreboardUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/commands/ScoreboardCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/scoreboard/ScoreboardCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/commands/ServerCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/dimensionlock/DimensionLockCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/listeners/DimensionLockListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/dimensionlock/DimensionLockListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/listeners/PlayerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/scoreboard/ScoreboardListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DeathTitle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/deathtitle/DeathTitleListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DimensionLockModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/dimensionlock/DimensionLockService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/modules/DimensionScoreboardModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/features/scoreboard/ScoreboardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/utils/ScoreboardUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/engenhoso/serverplugin/shared/scoreboard/ScoreboardUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MinezinServer-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MinezinServer-1.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MinezinServer-1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MinezinServer-1.3.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/MinezinServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/MinezinServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/commands/ServerCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/commands/ServerCommands.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/listeners/PlayerListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/listeners/PlayerListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathCountModule$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathCountModule.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathTitle$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathTitle$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathTitle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathTitle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/utils/ScoreboardUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/utils/ScoreboardUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/commands/ScoreboardCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/commands/ServerCommands.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/listeners/DimensionLockListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/listeners/PlayerListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathTitle$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DeathTitle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DimensionLockModule.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DimensionScoreboardModule$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/modules/DimensionScoreboardModule.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/engenhoso/serverplugin/utils/ScoreboardUtil.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/serverplugin-1.0.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,15 +74,25 @@
   &quot;keyToString&quot;: {
     &quot;Maven.serverplugin [install].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Davi/Desktop/MinezinServerRecuperadoGrazadeusCERTO/MinezinServer&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.engenhoso.serverplugin.shared.scoreboard" />
+      <recent name="com.engenhoso.serverplugin.features.scoreboard" />
+      <recent name="com.engenhoso.serverplugin.features.dimensionlock" />
+      <recent name="com.engenhoso.serverplugin.features.deathtitle" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
