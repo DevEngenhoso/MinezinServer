@@ -4,11 +4,8 @@ C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\ma
 C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\AuraListener.java
 C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\AuraModule.java
 C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\AuraService.java
-C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\ultimate\BlackHoleUltimateCraftListener.java
-C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\ultimate\BlackHoleUltimateItem.java
-C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\ultimate\BlackHoleUltimateListener.java
-C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\ultimate\BlackHoleUltimateRecipe.java
-C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\ultimate\BlackHoleUltimateService.java
+C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\skill\AuraSkillBarListener.java
+C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\aura\skill\AuraSkillBarService.java
 C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\deathtitle\DeathTitleListener.java
 C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\deathtitle\DeathTitleModule.java
 C:\Users\Davi\Desktop\MinezinServerRecuperadoGrazadeusCERTO\MinezinServer\src\main\java\com\engenhoso\serverplugin\features\dimensionlock\DimensionLockCommand.java

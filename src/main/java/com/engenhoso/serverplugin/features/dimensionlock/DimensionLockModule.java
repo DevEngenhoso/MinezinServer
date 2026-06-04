@@ -29,6 +29,13 @@ public class DimensionLockModule implements PluginModule {
         commandRegistry.register("unlock", command);
 
         plugin.getServer().getPluginManager().registerEvents(new DimensionLockListener(service), plugin);
+
+        service.iniciarMonitoramentoAgendamentos();
+    }
+
+    @Override
+    public void onDisable() {
+        service.pararMonitoramentoAgendamentos();
     }
 
     public DimensionLockService getService() {
