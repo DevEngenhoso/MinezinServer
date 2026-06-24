@@ -1,22 +1,21 @@
 package com.engenhoso.serverplugin.features.aura;
 
+import com.engenhoso.serverplugin.core.command.CommandRegistry;
 import com.engenhoso.serverplugin.core.module.PluginModule;
-import com.engenhoso.serverplugin.features.aura.skill.AuraSkillBarListener;
-import com.engenhoso.serverplugin.features.aura.skill.AuraSkillBarService;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AuraModule implements PluginModule {
 
     private final JavaPlugin plugin;
+    private final CommandRegistry commandRegistry;
 
     private final AuraService auraService;
-    private final AuraSkillBarService auraSkillBarService;
 
-    public AuraModule(JavaPlugin plugin) {
+    public AuraModule(JavaPlugin plugin, CommandRegistry commandRegistry) {
         this.plugin = plugin;
+        this.commandRegistry = commandRegistry;
 
         this.auraService = new AuraService(plugin);
-        this.auraSkillBarService = new AuraSkillBarService(plugin);
     }
 
     @Override
@@ -27,17 +26,15 @@ public class AuraModule implements PluginModule {
     @Override
     public void onEnable() {
         auraService.iniciarAura();
-        auraSkillBarService.iniciarAtualizacaoVisual();
 
-        plugin.getServer().getPluginManager().registerEvents(
-                new AuraSkillBarListener(auraSkillBarService),
-                plugin
+        commandRegistry.register(
+                "toggle",
+                new com.engenhoso.serverplugin.features.aura.ToggleCommand(auraService)
         );
     }
 
     @Override
     public void onDisable() {
         auraService.pararAura();
-        auraSkillBarService.parar();
     }
 }

@@ -4,6 +4,7 @@ main: com.engenhoso.serverplugin.MinezinServer
 api-version: '26.1.2'
 description: Plug-in oficial do MinezinServer
 author: Engenhoso
+
 commands:
   lock:
     description: Trava Nether ou End por um período.
@@ -21,7 +22,27 @@ commands:
     description: Mostra ou esconde o scoreboard do Minezin Server.
     usage: /scoreboard <on|off|toggle>
 
+  habilidades:
+    description: Abre o menu de habilidades da classe escolhida.
+    usage: /habilidades
+    aliases: [skills]
+
+  toggle:
+    description: Alterna opções pessoais do jogador.
+    usage: /toggle aura
+
+  mz:
+    description: Comando administrativo do MinezinServer.
+    usage: /mz
+    aliases: [minezin]
+    permission: minezin.admin
+    permission-message: "§cVocê não tem permissão para usar este comando."
+
 permissions:
   minezin.dimensionlock.admin:
     description: Permite travar e destravar dimensões.
+    default: op
+
+  minezin.admin:
+    description: Permite usar comandos administrativos do MinezinServer.
     default: op

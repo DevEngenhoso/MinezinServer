@@ -1,20 +1,29 @@
 package com.engenhoso.serverplugin.features.aura;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class AuraService {
 
     private static final String NICK_DONO_DA_AURA = "Engenhoso";
+    private static final String NOME_ESPADA_EXPANSAO = "Skeleton Piercer";
 
     private static final long INTERVALO_TICKS = 3L;
 
@@ -26,12 +35,22 @@ public class AuraService {
     private final JavaPlugin plugin;
     private final Random random = new Random();
 
+    private final File arquivo;
+    private final FileConfiguration config;
+
     private BukkitTask tarefaAura;
     private double angulo = 0.0;
     private double intensidadeExpansao = 0.0;
 
     public AuraService(JavaPlugin plugin) {
         this.plugin = plugin;
+
+        if (!plugin.getDataFolder().exists()) {
+            plugin.getDataFolder().mkdirs();
+        }
+
+        this.arquivo = new File(plugin.getDataFolder(), "aura.yml");
+        this.config = YamlConfiguration.loadConfiguration(arquivo);
     }
 
     public void iniciarAura() {
@@ -45,6 +64,11 @@ public class AuraService {
                 Player jogador = Bukkit.getPlayerExact(NICK_DONO_DA_AURA);
 
                 if (jogador == null || !jogador.isOnline()) {
+                    return;
+                }
+
+                if (!isAuraAtiva(jogador)) {
+                    intensidadeExpansao = 0.0;
                     return;
                 }
 
@@ -69,12 +93,80 @@ public class AuraService {
     }
 
     private void atualizarIntensidade(Player jogador) {
-        if (jogador.isSneaking()) {
+        if (estaCanalizandoExpansaoDaAura(jogador)) {
             intensidadeExpansao = Math.min(1.0, intensidadeExpansao + 0.075);
             return;
         }
 
         intensidadeExpansao = Math.max(0.0, intensidadeExpansao - 0.055);
+    }
+
+    public boolean podeControlarAura(Player jogador) {
+        return jogador != null && jogador.getName().equalsIgnoreCase(NICK_DONO_DA_AURA);
+    }
+
+    public boolean isAuraAtiva(Player jogador) {
+        if (!podeControlarAura(jogador)) {
+            return false;
+        }
+
+        return config.getBoolean("players." + jogador.getUniqueId() + ".ativa", true);
+    }
+
+    public Boolean alternarAura(Player jogador) {
+        if (!podeControlarAura(jogador)) {
+            return null;
+        }
+
+        boolean novoValor = !isAuraAtiva(jogador);
+
+        config.set("players." + jogador.getUniqueId() + ".nome", jogador.getName());
+        config.set("players." + jogador.getUniqueId() + ".ativa", novoValor);
+        salvar();
+
+        if (!novoValor) {
+            intensidadeExpansao = 0.0;
+        }
+
+        return novoValor;
+    }
+
+    private void salvar() {
+        try {
+            config.save(arquivo);
+        } catch (IOException e) {
+            plugin.getLogger().warning("Não foi possível salvar aura.yml: " + e.getMessage());
+        }
+    }
+
+    private boolean estaCanalizandoExpansaoDaAura(Player jogador) {
+        return jogador.isSneaking() && estaSegurandoSkeletonPiercer(jogador);
+    }
+
+    private boolean estaSegurandoSkeletonPiercer(Player jogador) {
+        ItemStack item = jogador.getInventory().getItemInMainHand();
+
+        if (item == null || item.getType() == Material.AIR) {
+            return false;
+        }
+
+        if (!item.getType().name().endsWith("_SWORD")) {
+            return false;
+        }
+
+        if (!item.hasItemMeta()) {
+            return false;
+        }
+
+        ItemMeta meta = item.getItemMeta();
+
+        if (meta == null || !meta.hasDisplayName()) {
+            return false;
+        }
+
+        String nome = ChatColor.stripColor(meta.getDisplayName());
+
+        return nome != null && nome.equalsIgnoreCase(NOME_ESPADA_EXPANSAO);
     }
 
     private void emitirAuraNormal(Player jogador) {

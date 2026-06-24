@@ -1,0 +1,14 @@
+database:
+  enabled: true
+  host: "127.0.0.1"
+  port: 3306
+  database: "minezinserver"
+  username: "minezin"
+  password: "minezin"
+
+  pool:
+    maximumPoolSize: 10
+    minimumIdle: 2
+    connectionTimeout: 30000
+    idleTimeout: 600000
+    maxLifetime: 1800000

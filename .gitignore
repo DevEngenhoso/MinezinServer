@@ -1,0 +1,14 @@
+# IDE
+.idea/
+*.iml
+
+# Build
+target/
+*.class
+*.jar
+
+# Google Drive temp
+.tmp.driveupload/
+
+# Local docs
+Roadmap_MinezinServer_RPG_Checklist.docx
