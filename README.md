@@ -1,3 +1,5 @@
+![MinezinServer Banner](docs/banner.png)
+
 # MinezinServer
 
 > **Um plugin RPG para Minecraft focado em classes, progressão, habilidades, mundos narrativos e presença épica dentro do servidor.**
